@@ -1,0 +1,51 @@
+1.该module的作用？
+    客户端负载均衡 。
+2.该配置参考了什么资料？
+    first:《spring cloud微服务实战》第四章：客户端负载均衡：Spring Cloud Ribbon
+    second:http://cloud.spring.io/spring-cloud-static/Edgware.SR4/single/spring-cloud.html#spring-cloud-ribbon
+3.客户端负载均衡和服务端负载均衡的区别？
+    它们最大的区别在于服务清单所存储的位置，在客户端负载均衡中，所有节点都要维护自己要访问的服务端清单。
+4.启动日志解读？
+    No active profile set, falling back to default profiles: default
+    Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@4dd02341(for example: not eligible for auto-proxying)
+    Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration(for example: not eligible for auto-proxying)
+    Bean 'org.springframework.transaction.annotation.ProxyTransactionMa
+    Tomcat initialized with port(s): 9002 (http)
+    Starting service [Tomcat]
+    Starting Servlet Engine: Apache Tomcat/8.5.23
+    Initializing Spring embedded WebApplicationContext
+    Root WebApplicationContext: initialization completed in 1200 ms
+    Mapping servlet: 'dispatcherServlet' to [/]
+    Mapping filter: 'characterEncodingFilter' to: [/*]
+    Mapped "{[/car/time]}" onto public java.lang.String com.zhx.spri
+    Registering beans for JMX exposure on startup
+    Bean with name 'configurationPropertiesRebinder' has been autodetected for JMX exposure
+    Bean with name 'environmentManager' has been autodetected for JMX exposure
+    Located managed bean 'environmentManager': registering w
+    Resolving eureka endpoints via configuration
+    Getting all instance registry info from the eureka server
+    Starting heartbeat executor: renew interval is: 30
+    Discovery Client initialized at timestamp 1538273867264 with initial instances count: 0
+    Registering application service-car with eureka with status UP
+    DiscoveryClient_SERVICE-CAR/192.168.1.236:service-car:9002: registering service...
+    Tomcat started on port(s): 9002 (http)
+    Started DemoRibbonCarApplication in 5.715 seconds (JVM running for 6.253)
+    大致可以理解为：
+    检测到没有active profile，使用默认的
+    刷新一个不知道是什么的上下文
+    提示有两个Bean不适合自动代理
+    初始化tomcat：端口，引擎
+    注册dispatcherServlet，filter，url
+    解析eureka配置
+    获取eureka上注册的所有实例
+    启动心跳执行器
+    向eureka注册自己
+    启动完毕。
+    另外在日志中有非常重要的两句话，值得注意：
+    Starting heartbeat executor: renew interval is: 30
+    (和eureka维持心跳，30ms一次)
+    InstanceInfoReplicator onDemand update allowed rate per min is 4
+   （暂时理解为：允许每分钟更新四次分片信息）
+    Resolving eureka endpoints via configuration
+   （改行日志每五分钟打印一次，暂时理解为：和eureka进行一次信息确认，或者是交换）
+

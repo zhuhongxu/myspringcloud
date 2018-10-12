@@ -1,0 +1,23 @@
+一.该配置参考了什么资料？
+     first:《spring cloud微服务实战》第五章：服务容错保护：Spring Cloud Hystrix
+     second:http://cloud.spring.io/spring-cloud-static/Edgware.SR4/multi/multi__circuit_breaker_hystrix_clients.html
+二、hystrix可以做什么?
+   当线程因调用故障服务导致长时间占用的资源不释放时，通过断路器的故障监控，向调用方返回一个错误响应，而不是长时间的等待，避免了故障在分布式系统中的蔓延。
+三、搭建demo-hystrix-userphone和demo-hystrix-car服务，启动eureka，并启动这两个项目，浏览器访问：
+    http://localhost:9200/user/phone/car/time
+    响应：
+    2018/09/18
+四、关闭demo-hystrix-car服务，浏览器访问：
+    http://localhost:9200/user/phone/car/time
+    响应：
+    Whitelabel Error Page
+    This application has no explicit mapping for /error, so you are seeing this as a fallback.
+
+    Wed Oct 10 11:36:02 CST 2018
+    There was an unexpected error (type=Internal Server Error, status=500).
+    I/O error on GET request for "http://service-hystrix-car/car/time": Connection refused (Connection refused); nested exception is java.net.ConnectException: Connection refused (Connection refused)
+    很明显，这并不是我们想要的，于是在项目中引入Spring Cloud Hystrix:
+五、当加入断路器之后，当目标服务无法按照预期访问，那么会成功执行相应的fallback逻辑，浏览器访问：
+    http://localhost:9200/user/phone/car/time
+    返回：
+    invoke error

@@ -1,0 +1,9 @@
+1.该module的作用？
+    jar包版本控制。
+2.这样配置参考了什么资料？
+  first：《maven实战》第八章：聚合与继承
+  second：http://projects.spring.io/spring-cloud/。
+3.为什么是springboot1.5.8.RELEASE和SpringCloud Edgware.SR4组合？
+    原来生产环境的springboot版本是springboot1.5.8.RELEASE，经了解，SpringCloud Edgware.SR4刚好与其完美兼容。
+   （The Dalston and Edgware release trains build on Spring Boot 1.5.x, and are not
+         expected to work with Spring Boot 2.0.x.）

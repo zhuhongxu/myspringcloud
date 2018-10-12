@@ -1,0 +1,17 @@
+一、关于ribbon的测试主要是用user服务调用car服务来进行的：
+    1、负载均衡测试：
+        1》默认负载均衡策略：通过
+            测试方法：运行三个service-car实例，在浏览器请求http://localhost:9100/user/phone/car/time这个uri30次，
+            发现它们均匀的落在了三个实例上。
+        2》其他：未测试
+            原因：目前没遇到这样的场景，觉得测试意义不大。
+    2、ConnectTimeout(请求连接的超时时间)：未测试
+        原因：除了直接关闭服务，不知道该如何模拟请求超时的场景。
+    3、ReadTimeout(请求处理的超时时间)：测试通过
+        测试方法：
+            1》让service-car服务的目标方法休眠1000ms时报错，休眠900ms的时候请求成功。
+            2》配置ribbon.connectTimeout为4000，service-car服务的目标方法休眠3000ms，请求成功。
+二.突发奇想：如果ribbon-car服务依赖ribbon-user服务，同时ribbon-user服务依赖于ribbon-car服务，那么在一定的时间间隔内（刚启动那会儿），
+  它们能否互相访问成功（因为猜测先启动的服务在一定时间gap内不知道后启动服务实例的地址）？
+三、关于ribbon超时时间的默认配置，可以参考：
+    org.springframework.cloud.netflix.ribbon.support.AbstractLoadBalancingClient.initWithNiwsConfig
