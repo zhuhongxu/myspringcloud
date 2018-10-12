@@ -1,0 +1,5 @@
+1.该module的作用？
+    服务注册中心。
+2.该配置参考了什么资料？
+    first:《spring cloud微服务实战》第三章：服务治理：Spring Cloud Eureka
+    second:http://cloud.spring.io/spring-cloud-static/Edgware.SR4/single/spring-cloud.html#_spring_cloud_netflix
