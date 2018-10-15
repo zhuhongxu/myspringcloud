@@ -14,8 +14,10 @@
         <module>demo-eureka</module>
         <module>demo-ribbon-car</module>
         <module>demo-ribbon-user</module>
-        <module>demo-hystrix-userphone</module>
+        <module>demo-hystrix-user</module>
         <module>demo-hystrix-car</module>
+        <module>demo-feign-user</module>
+        <module>demo-feign-car</module>
     </modules>
 
 

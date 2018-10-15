@@ -1,9 +1,11 @@
 spring:
   application:
-    name: service-ribbon-car
+    name: service-hystrix-user
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
 server:
-  port: 9002
+  port: 9200
+ribbon:
+  connectTimeout: 4000
